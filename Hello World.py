@@ -139,3 +139,75 @@ if b > a:
     print("b is greater than a")
 else:
     print("b is not greater than a")
+
+#Evaluate a string and a number
+print(bool("Hello"))
+print(bool(15))
+
+#Evaluate two variables
+a = "Hello"
+b=15
+c=0
+d=""
+print(bool(a))
+print(bool(b))
+print(bool(c))
+print(bool(d))
+
+#print the answer to a function
+def myfunct():
+    return True
+print(myfunct())
+
+#modulus operator
+a=17%3
+print(a)
+
+#Lists
+
+thislist = ["apple","banana","cherry","orange","kiwi","lemon"]
+print(thislist)
+print(thislist[1])
+print(thislist[-1])
+print(thislist[-2])
+#print range
+print(thislist[2:5])
+print(thislist[-3:-1])
+
+#check if items exist
+if "apple" in thislist:
+    print("Apple is in this list")
+else:
+    print("Apple is not in this list")
+
+#change item value
+
+thislist[1]="Black Current"
+print(thislist)
+#insertmethod
+thislist.insert(2,"watermelon")
+print(thislist)
+#appendmethod
+thislist.append("watermelon")
+print(thislist)
+
+#extendlist method
+tropical=["mango","passion","papaya"]
+thislist.extend(tropical)
+print(thislist)
+
+#removemethod
+thislist.remove("papaya")
+print(thislist)
+
+#popindex
+thislist.pop(1)
+print(thislist)
+
+#Delete list
+#del thislist
+#print(thislist)
+
+#clearmethod
+thislist.clear()
+print(thislist)
