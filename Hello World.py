@@ -211,3 +211,74 @@ print(thislist)
 #clearmethod
 thislist.clear()
 print(thislist)
+
+#tuple
+thistuple = ("apple","banana","cherry")
+print(thistuple)
+print(len(thistuple))
+
+#single tuple
+thistuple=("watermelon",)
+print(type(thistuple))
+
+thistuple = ("apple","banana","cherry","watermelon","papaya","mango","maize","potato")
+print(thistuple[1]) #access tuple items
+print(thistuple[-1]) #negative indexing
+print(thistuple[2:5]) #range of indexes
+print(thistuple[-4:-1]) #range of negative indexes
+
+#update  tuples
+x= ("apple","banana","papaya")
+y = list(x)
+y[1] = "kiwi"
+x = tuple(y)
+print(x)
+
+#createaset
+x={"apple","papaya","cherry"}
+print(type(x))
+
+#python dictionaries
+thisdict = {
+    "brand": "Ford",
+    "model": "Mustang",
+    "year": 1964
+}
+print(thisdict)
+
+#UserInput
+#username = input("Enter your Username")
+#print("Username is:"+username)
+
+#Ifstatement
+a = 20
+b=100
+if b>a:
+    print("b is greater than a")
+
+#elif - If the previous condition were not true, then try this condition
+a = 55
+b = 55
+if b>a:
+    print("b is greater than a")
+elif a==b:
+    print("a and b are equal")
+
+#else-catches anything that isn't caught by preceding conditions
+a = 500
+b = 100
+if b>a:
+    print("b is greater than a")
+elif a==b:
+    print("a and b are equal")
+else:
+    print("a is greater tha b")
+
+#nestedif - if statement inside an if statement
+x = 15
+if x>10:
+    print("Above ten")
+    if x>20:
+        print("and also above 20")
+    else:
+        print("but not above 30")
