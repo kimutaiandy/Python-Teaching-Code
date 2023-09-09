@@ -282,3 +282,111 @@ if x>10:
         print("and also above 20")
     else:
         print("but not above 30")
+
+#while loop
+i = 1
+while i<6:
+    print(i)
+    i+=1
+
+#break statement
+
+i = 1
+while i<6:
+    print(i)
+    if i == 3:
+        break
+    i+=1
+
+#continue statement
+
+i = 0
+while i<6:
+    i+=1
+    if i == 3:
+        continue
+    print(i)
+
+#else statement
+i=1
+while i <6:
+    print(i)
+    i+=1
+else:
+    print("i is no longer less than 6")
+
+#for loops
+fruits = ["apple","banana","cherry"]
+for x in fruits:
+    print(x)
+
+#looping through a string
+for x in "banana":
+    print(x)
+
+#if else, break statement
+for x in range(6):
+    if x ==3: break
+    print(x)
+else:
+    print("Finally finished")
+
+#nested loops
+
+adj = ["red","big","tasty"]
+fruits = ["apple","banana","cherry"]
+for x in adj:
+    for y in fruits:
+        print(x,y)
+
+#functions
+
+def my_function():
+    print("Hello from a function")
+my_function()
+
+#arguments
+def my_function(fname):
+    print(fname+" Refsnes")
+
+my_function("Andrew")
+my_function("Emily")
+my_function("Ian")
+
+#number of arguments
+def my_function(fname,lname):
+    print(fname+" "+lname)
+my_function("Ian","Andrew")
+
+#default parameter value
+def my_function(country="Kenya"):
+    print("I am from " + country)
+my_function("Sweden")
+my_function("India")
+my_function()
+my_function("Brazil")
+
+#return values
+def my_function(x):
+    return 5*x
+print(my_function(3))
+print(my_function(5))
+print(my_function(9))
+
+#class
+
+class Person:
+    def __init__(self, name, age, height, weight, catch_phrase):
+        self.name = name
+        self.age = age
+        self.height = height
+        self.weight = weight
+        self.catch_phrase = catch_phrase
+
+p1 = Person("Ian",102,20,75,"Mambo ni matatu")
+
+#print(p1.name)
+#print(p1.age)
+#print(p1.height)
+#print(p1.weight)
+print(p1.catch_phrase)
