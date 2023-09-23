@@ -1,68 +1,115 @@
-#Syntax-Identation
-if 5 > 2:
- print("Five is greater than two")
+# Import libraries
+import platform
+from tempfile import TemporaryDirectory
+from pathlib import Path
 
-#Variables
-userAge=0
-print(userAge)
+import pytesseract
+from pdf2image import convert_from_path
+from PIL import Image
 
-#defining multiple variables in onego
-userAge2, userName =22 , "Thor"
-print(userAge2)
-print(userName)
+if platform.system() == "Windows":
+    # We may need to do some additional downloading and setup...
+    # Windows needs a PyTesseract Download
+    # https://github.com/UB-Mannheim/tesseract/wiki/Downloading-Tesseract-OCR-Engine
 
-#Assigning same value to multiple variables
-x = y = z = "Oranges"
-print(x)
-print(y)
-print(z)
+    pytesseract.pytesseract.tesseract_cmd = (
+        r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+    )
 
-#unpacking lists to variables
-fruits = ["Apple","Sugar Cane","Banana",512]
-a,b,c,d = fruits
-print(a)
-print(b)
-print(c)
-print(d)
+    # Windows also needs poppler_exe
+    path_to_poppler_exe = Path(r"C:\.....")
 
-#GlobalFunction
-s = "awesome"
-def myfunct():
- print("Python is "+s)
-myfunct()
+    # Put our output files in a sane place...
+    out_directory = Path(r"~\Desktop").expanduser()
+else:
+    out_directory = Path("~").expanduser()
 
-#create a variable with the same name as the global variable
-t = "awesome"
-def myfunction():
- t="fantasic"
- print("Python is " +t)
-myfunction()
-print("Python is "+t)
+# Path of the Input pdf
+PDF_file = Path(r"d.pdf")
 
-#DataTypes
-w=5 #integer
-print(w)
-print(type(w))
+# Store all the pages of the PDF in a variable
+image_file_list = []
 
-e=5.0 #float
-print(e)
-print(type(e))
+text_file = out_directory / Path("out_text.txt")
 
-t="cow" #string
-print(t)
-print(type(t))
 
-u = 5j
-print(5j)
-print(type(u))
+def main():
+    ''' Main execution point of the program'''
+    with TemporaryDirectory() as tempdir:
+        # Create a temporary directory to hold our temporary images.
 
-#randomnumberfunction
-import random
-print(random.randrange(1,10))
+        """
+  Part #1 : Converting PDF to images
+  """
 
-#This is a comment in one line
-#This is a multi-line comment with docstrings
-#print("Hello world")
-#print("Hello universe")
-#print("Hello everyone")
-#"""
+        if platform.system() == "Windows":
+            pdf_pages = convert_from_path(
+                PDF_file, 500, poppler_path=path_to_poppler_exe
+            )
+        else:
+            pdf_pages = convert_from_path(PDF_file, 500)
+        # Read in the PDF file at 500 DPI
+
+        # Iterate through all the pages stored above
+        for page_enumeration, page in enumerate(pdf_pages, start=1):
+            # enumerate() "counts" the pages for us.
+
+            # Create a file name to store the image
+            filename = f"{tempdir}\page_{page_enumeration:03}.jpg"
+
+            # Declaring filename for each page of PDF as JPG
+            # For each page, filename will be:
+            # PDF page 1 -> page_001.jpg
+            # PDF page 2 -> page_002.jpg
+            # PDF page 3 -> page_003.jpg
+            # ....
+            # PDF page n -> page_00n.jpg
+
+            # Save the image of the page in system
+            page.save(filename, "JPEG")
+            image_file_list.append(filename)
+
+        """
+  Part #2 - Recognizing text from the images using OCR
+  """
+
+        with open(text_file, "a") as output_file:
+            # Open the file in append mode so that
+            # All contents of all images are added to the same file
+
+            # Iterate from 1 to total number of pages
+            for image_file in image_file_list:
+                # Set filename to recognize text from
+                # Again, these files will be:
+                # page_1.jpg
+                # page_2.jpg
+                # ....
+                # page_n.jpg
+
+                # Recognize the text as string in image using pytesserct
+                text = str(((pytesseract.image_to_string(Image.open(image_file)))))
+
+                # The recognized text is stored in variable text
+                # Any string processing may be applied on text
+                # Here, basic formatting has been done:
+                # In many PDFs, at line ending, if a word can't
+                # be written fully, a 'hyphen' is added.
+                # The rest of the word is written in the next line
+                # Eg: This is a sample text this word here GeeksF-
+                # orGeeks is half on first line, remaining on next.
+                # To remove this, we replace every '-\n' to ''.
+                text = text.replace("-\n", "")
+
+                # Finally, write the processed text to the file.
+                output_file.write(text)
+
+            # At the end of the with .. output_file block
+            # the file is closed after writing all the text.
+        # At the end of the with .. tempdir block, the
+        # TemporaryDirectory() we're using gets removed!
+    # End of main function!
+
+
+if __name__ == "__main__":
+    # We only want to run this if it's directly executed!
+    main()
