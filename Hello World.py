@@ -390,3 +390,32 @@ p1 = Person("Ian",102,20,75,"Mambo ni matatu")
 #print(p1.height)
 #print(p1.weight)
 print(p1.catch_phrase)
+
+class person2:
+    def __init__(self,name,age):
+        self.name=name
+        self.age=age
+
+    def __str__(self):
+        return f"{self.name}{self.age}"
+
+p1=person2("john",36)
+print(p1)
+
+class person3:
+    def __init__(self, fname, lname):
+        self.firstname = fname
+        self.lastname = lname
+
+    def printname(self):
+        print(self.firstname, self.lastname)
+
+x = person3("John", "Doe")
+x.printname()
+
+class Student(person3):
+ x = Student("Mike", "Olsen")
+ x.printname()
+
+
+
