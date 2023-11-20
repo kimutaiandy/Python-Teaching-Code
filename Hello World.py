@@ -376,12 +376,12 @@ print(my_function(9))
 #class
 
 class Person:
-    def __init__(self, name, age, height, weight, catch_phrase):
-        self.name = name
-        self.age = age
-        self.height = height
-        self.weight = weight
-        self.catch_phrase = catch_phrase
+    def __init__(identifier, name, age, height, weight, catch_phrase):
+        identifier.name = name
+        identifier.age = age
+        identifier.height = height
+        identifier.weight = weight
+        identifier.catch_phrase = catch_phrase
 
 p1 = Person("Ian",102,20,75,"Mambo ni matatu")
 
