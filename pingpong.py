@@ -25,7 +25,7 @@ def draw(win):
 def main(): #main loop of the program
     run = True
     clock = pygame.time.Clock()
-
+#
     while run:
         clock.tick(FPS) #makes sure the game can't run faster than 60FPS
         draw(WIN)
