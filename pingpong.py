@@ -19,9 +19,14 @@ class Paddle: #defining the paddle
     def draw(self, win):
         pygame.draw.rectangle(win, self.COLOR, (self.x, self.y, self.width, self.height))
 
-def draw(win):
+def draw(win, paddles):
     win.fill(BLACK)
+
+    for paddle in paddles:
+        paddle.draw(win)
+
     pygame.display.update()
+
 def main(): #main loop of the program
     run = True
     clock = pygame.time.Clock()
