@@ -25,6 +25,7 @@ def draw(win, paddles):
     for paddle in paddles:
         paddle.draw(win)
 #test
+    #test2
     pygame.display.update()
 
 def main(): #main loop of the program
