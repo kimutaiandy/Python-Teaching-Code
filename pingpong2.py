@@ -60,6 +60,23 @@ def draw(win, paddles, ball):
     ball.draw(win)
     pygame.display.update()
 
+def handle_collision(ball, left_paddle,right_paddle):
+    #Handles collision with the ceiling
+    if ball.y + ball.radius >= HEIGHT:
+        ball.y_vel *= -1 #reverses the direction of the ball
+    elif ball.y - ball.radius <=0:
+        ball.y_vel *= -1
+    #check which paddle is being hit
+    if ball.x_vel <0:
+        if ball.y >= left_paddle.y and ball.y <= left_paddle.y + left_paddle.height:
+            if ball.x - ball.radius <= left_paddle.x + left_paddle.width:
+                ball.x_vel *= -1
+    else:
+        if ball.y >= right_paddle.y and ball.y <= right_paddle.y + right_paddle.height:
+            if ball.x + ball.radius >= right_paddle.x:
+                ball.x_vel *= -1
+
+
 def handle_paddle_movement(keys, left_paddle, right_paddle):
     if keys[pygame.K_w] and left_paddle.y - left_paddle.VEL >=0:
         left_paddle.move(up=True)
@@ -89,7 +106,8 @@ def main(): #main loop of the program
                 break
         keys = pygame.key.get_pressed()
         handle_paddle_movement(keys, left_paddle, right_paddle)
-        ball.move() #moves the ball
+        ball.move()#moves the ball
+        handle_collision(ball, left_paddle, right_paddle)
     pygame.quit()
 
 if __name__ == '__main__': #this ensures that the main module is being run for the main function to run
