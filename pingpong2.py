@@ -42,8 +42,8 @@ class Ball:
         pygame.draw.circle(win, self.COLOR, (self.x,self.y),self.radius)
     #this is how we move the ball
     def move(self):
-        self.x += self.x.vel
-        self.y += self.y.vel
+        self.x += self.x_vel
+        self.y += self.y_vel
 
 
 
@@ -89,6 +89,7 @@ def main(): #main loop of the program
                 break
         keys = pygame.key.get_pressed()
         handle_paddle_movement(keys, left_paddle, right_paddle)
+        ball.move() #moves the ball
     pygame.quit()
 
 if __name__ == '__main__': #this ensures that the main module is being run for the main function to run
