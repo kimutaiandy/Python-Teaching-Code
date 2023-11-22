@@ -29,11 +29,12 @@ class Paddle: #defining the paddle
 
 class Ball:
     MAX_VEL = 5
+    COLOR = WHITE
     def __init__(self, x,y, radius):
         self.x = x
         self.y = y
         self.radius = radius
-        self.x_vel = MAX_VEL
+        self.x_vel = self.MAX_VEL
         self.y_vel = 0
 
     # this is how we draw the ball
@@ -46,7 +47,7 @@ class Ball:
 
 
 
-def draw(win, paddles):
+def draw(win, paddles, ball):
     win.fill(BLACK)
 
     for paddle in paddles:
@@ -56,7 +57,7 @@ def draw(win, paddles):
         if i%2 == 1:
             continue
         pygame.draw.rect(win, WHITE, (WIDTH//2 - 5, i, 10, HEIGHT//20))
-
+    ball.draw(win)
     pygame.display.update()
 
 def handle_paddle_movement(keys, left_paddle, right_paddle):
@@ -80,7 +81,7 @@ def main(): #main loop of the program
     ball = Ball(WIDTH//2, HEIGHT//2, BALL_RADIUS)
     while run:
         clock.tick(FPS) #makes sure the game can't run faster than 60FPS
-        draw(WIN, [left_paddle, right_paddle])
+        draw(WIN, [left_paddle, right_paddle], ball)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT: #event to quit the window
