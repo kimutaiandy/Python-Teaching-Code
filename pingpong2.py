@@ -11,6 +11,9 @@ BLACK = (0,0,0)
 
 PADDLE_HEIGHT,PADDLE_WIDTH = 100,20
 BALL_RADIUS = 7
+
+SCORE_FONT = pygame.font.SysFont("comicsans", 50)
+
 class Paddle: #defining the paddle
     COLOR = WHITE
     VEL = 4
@@ -47,8 +50,13 @@ class Ball:
 
 
 
-def draw(win, paddles, ball):
+def draw(win, paddles, ball, left_score, right_score):
     win.fill(BLACK)
+
+    left_score_text = SCORE_FONT.render(f"{left_score}", 1, WHITE)
+    right_score_text = SCORE_FONT.render(f"{right_score}", 1, WHITE)
+    win.blit(left_score_text, (WIDTH//4 - left_score_text.get_width()//2,20)) #score to be drown in the first quater
+    win.blit(right_score_text, (WIDTH*(3/4) - right_score_text.get_width() // 2, 20)) #score to be drown in the third quater
 
     for paddle in paddles:
         paddle.draw(win)
@@ -108,9 +116,11 @@ def main(): #main loop of the program
     left_paddle = Paddle(10, HEIGHT//2 - PADDLE_HEIGHT//2, PADDLE_WIDTH, PADDLE_HEIGHT)
     right_paddle = Paddle(WIDTH - 10 - PADDLE_WIDTH, HEIGHT//2 - PADDLE_HEIGHT//2, PADDLE_WIDTH, PADDLE_HEIGHT)
     ball = Ball(WIDTH//2, HEIGHT//2, BALL_RADIUS)
+    left_score = 0
+    right_score = 0
     while run:
         clock.tick(FPS) #makes sure the game can't run faster than 60FPS
-        draw(WIN, [left_paddle, right_paddle], ball)
+        draw(WIN, [left_paddle, right_paddle], ball, left_score,right_score)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT: #event to quit the window
@@ -120,6 +130,13 @@ def main(): #main loop of the program
         handle_paddle_movement(keys, left_paddle, right_paddle)
         ball.move()#moves the ball
         handle_collision(ball, left_paddle, right_paddle)
+
+        #logic to calculate the score
+        if ball.x<0:
+            right_score += 1
+        elif ball.x>WIDTH:
+            left_score += 1
+
     pygame.quit()
 
 if __name__ == '__main__': #this ensures that the main module is being run for the main function to run
