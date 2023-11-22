@@ -10,7 +10,7 @@ WHITE = (255,255,255)
 BLACK = (0,0,0)
 
 PADDLE_HEIGHT,PADDLE_WIDTH = 100,20
-
+BALL_RADIUS = 7
 class Paddle: #defining the paddle
     COLOR = WHITE
     VEL = 4
@@ -35,8 +35,11 @@ class Ball:
         self.radius = radius
         self.x_vel = MAX_VEL
         self.y_vel = 0
+
+    # this is how we draw the ball
     def draw(self, win):
         pygame.draw.circle(win, self.COLOR, (self.x,self.y),self.radius)
+    #this is how we move the ball
     def move(self):
         self.x += self.x.vel
         self.y += self.y.vel
@@ -74,7 +77,7 @@ def main(): #main loop of the program
 
     left_paddle = Paddle(10, HEIGHT//2 - PADDLE_HEIGHT//2, PADDLE_WIDTH, PADDLE_HEIGHT)
     right_paddle = Paddle(WIDTH - 10 - PADDLE_WIDTH, HEIGHT//2 - PADDLE_HEIGHT//2, PADDLE_WIDTH, PADDLE_HEIGHT)
-
+    ball = Ball(WIDTH//2, HEIGHT//2, BALL_RADIUS)
     while run:
         clock.tick(FPS) #makes sure the game can't run faster than 60FPS
         draw(WIN, [left_paddle, right_paddle])
