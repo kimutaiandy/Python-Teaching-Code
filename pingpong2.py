@@ -139,8 +139,10 @@ def main(): #main loop of the program
         #logic to calculate the score
         if ball.x<0:
             right_score += 1
+            ball.reset()
         elif ball.x>WIDTH:
             left_score += 1
+            ball.reset()
 
     pygame.quit()
 
