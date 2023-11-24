@@ -18,11 +18,28 @@ def drawGrid():
         for y in range(0, SH, BLOCK_SIZE):
             rect = pygame.Rect(x,y, BLOCK_SIZE, BLOCK_SIZE)
             pygame.draw.rect(screen, "#FFFFFF", rect, 1)
+
+class Snake:
+    def __init__(self):
+        self.x, self.y = BLOCK_SIZE, BLOCK_SIZE
+        self.xdir = 1
+        self.ydir = 1
+        self.head = pygame.Rect(self.x, self.y, BLOCK_SIZE, BLOCK_SIZE)
+        self.body = [pygame.Rect(self.x-BLOCK_SIZE,self.y, BLOCK_SIZE, BLOCK_SIZE)]
+        self.dead = False
 drawGrid()
+snake = Snake()
+
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+
+    pygame.draw.rect(screen, "green", snake.head)
+
+    for square in snake.body:
+        pygame.draw.rect(screen, "green", square)
+
     pygame.display.update()
     clock.tick(10)
