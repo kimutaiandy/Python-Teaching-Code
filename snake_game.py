@@ -6,7 +6,7 @@ pygame.init() #initializes pygame modules
 
 SW, SH = 800,800
 
-FONT = pygame.font.Font("font.TFF", 100)
+FONT = pygame.font.Font("font.ttf", 100)
 
 screen = pygame.display.set_mode((800,800))
 pygame.display.set_caption("Snake!")
