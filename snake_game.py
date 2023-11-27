@@ -56,6 +56,9 @@ class Apple:
     def update(self):
         pygame.draw.rect(screen,"red", self.rect)
 
+score = FONT.render(("1", True,"white"))
+score_rect =score.get_rect(center=(SW/2/SH/2))
+
 drawGrid()
 snake = Snake()
 apple = Apple()
@@ -83,10 +86,14 @@ while True:
     screen.fill('black')
     drawGrid()
     apple.update()
+    score = FONT.render(f"{len(snake.body) + 1}", True, "white")
     pygame.draw.rect(screen, "green", snake.head)
 
     for square in snake.body:
         pygame.draw.rect(screen, "green", square)
+
+    screen.blit(score, score_rect)
+
     if snake.head.x == apple.x and snake.head.y == apple.y:
         snake.body.append(pygame.Rect(square.x, square.y, BLOCK_SIZE, BLOCK_SIZE))
         apple = Apple()
