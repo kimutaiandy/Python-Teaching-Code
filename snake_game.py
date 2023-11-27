@@ -28,6 +28,7 @@ class Snake:
         self.body = [pygame.Rect(self.x-BLOCK_SIZE,self.y, BLOCK_SIZE, BLOCK_SIZE)]
         self.dead = False
     def update(self):
+        global apple
         for square in self.body:
             if self.head.x == square.x and self.head.y == square.y:
                 self.dead = True
@@ -87,7 +88,7 @@ while True:
     for square in snake.body:
         pygame.draw.rect(screen, "green", square)
     if snake.head.x == apple.x and snake.head.y == apple.y:
-        snake.body.append(pygame.Rect(snake.head.x, snake.head.y, BLOCK_SIZE, BLOCK_SIZE))
+        snake.body.append(pygame.Rect(square.x, square.y, BLOCK_SIZE, BLOCK_SIZE))
         apple = Apple()
 
 
