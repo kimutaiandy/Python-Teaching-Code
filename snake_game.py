@@ -73,6 +73,10 @@ while True:
 
     for square in snake.body:
         pygame.draw.rect(screen, "green", square)
+    if snake.head.x == apple.x and snake.head.y == apple.y:
+        snake.body.append(pygame.Rect(snake.head.x, snake.head.y, BLOCK_SIZE, BLOCK_SIZE))
+        apple = Apple()
+
 
     pygame.display.update()
     clock.tick(10)
