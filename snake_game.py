@@ -34,9 +34,17 @@ class Snake:
         self.head.x += self.xdir * BLOCK_SIZE
         self.head.y += self.ydir * BLOCK_SIZE
         self.body.remove(self.head)
+class Apple:
+    def __init__(self):
+        self.x = random.randint(0,SW)
+        self.y = random.randint(0, SH)
+        self.rect = pygame.Rect(self.x, self.y, BLOCK_SIZE, BLOCK_SIZE)
+    def update(self):
+        pygame.draw.rect(screen,"red", self.rect)
+
 drawGrid()
 snake = Snake()
-
+apple = Apple()
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
