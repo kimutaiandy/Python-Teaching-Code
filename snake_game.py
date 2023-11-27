@@ -68,6 +68,7 @@ while True:
     snake.update()
     screen.fill('black')
     drawGrid()
+    apple.update()
     pygame.draw.rect(screen, "green", snake.head)
 
     for square in snake.body:
