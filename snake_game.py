@@ -23,7 +23,7 @@ class Snake:
     def __init__(self):
         self.x, self.y = BLOCK_SIZE, BLOCK_SIZE
         self.xdir = 1
-        self.ydir = 1
+        self.ydir = 0
         self.head = pygame.Rect(self.x, self.y, BLOCK_SIZE, BLOCK_SIZE)
         self.body = [pygame.Rect(self.x-BLOCK_SIZE,self.y, BLOCK_SIZE, BLOCK_SIZE)]
         self.dead = False
@@ -31,9 +31,9 @@ class Snake:
         self.body.append(self.head)
         for i in range(len(self.body)-1):
             self.body[i].x, self.body[i].y = self.body[i+1].x, self.body[i+1].y
-        self.head.x = self.xdir * BLOCK_SIZE
-        self.head.y = self.ydir * BLOCK_SIZE
-        self.body.remove(self.hand)
+        self.head.x += self.xdir * BLOCK_SIZE
+        self.head.y += self.ydir * BLOCK_SIZE
+        self.body.remove(self.head)
 drawGrid()
 snake = Snake()
 
@@ -42,7 +42,7 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-
+    snake.update()
     pygame.draw.rect(screen, "green", snake.head)
 
     for square in snake.body:
