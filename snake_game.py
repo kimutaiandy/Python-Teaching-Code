@@ -36,8 +36,8 @@ class Snake:
         self.body.remove(self.head)
 class Apple:
     def __init__(self):
-        self.x = random.randint(0,SW)
-        self.y = random.randint(0, SH)
+        self.x = int(random.randint(0,SW)/BLOCK_SIZE) * BLOCK_SIZE
+        self.y = int(random.randint(0, SH)/BLOCK_SIZE) * BLOCK_SIZE
         self.rect = pygame.Rect(self.x, self.y, BLOCK_SIZE, BLOCK_SIZE)
     def update(self):
         pygame.draw.rect(screen,"red", self.rect)
