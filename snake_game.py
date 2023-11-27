@@ -43,6 +43,8 @@ while True:
             pygame.quit()
             sys.exit()
     snake.update()
+    screen.fill('black')
+    drawGrid()
     pygame.draw.rect(screen, "green", snake.head)
 
     for square in snake.body:
